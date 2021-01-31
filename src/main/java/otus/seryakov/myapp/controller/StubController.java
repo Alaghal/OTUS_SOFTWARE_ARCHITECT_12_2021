@@ -7,11 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-public class HealthController {
+public class StubController {
 
-    @GetMapping("/health")
-    public ResponseEntity<Object> getHealth(){
-        return ok().body("It's alive");
+    @GetMapping("/")
+    public ResponseEntity<Object> getCurrentPage() {
+        return ok().body("Main page");
     }
-
 }
