@@ -20,7 +20,7 @@
 		<dockerfile-plugin.version>1.3.6</dockerfile-plugin.version>
 		<java.version>15</java.version>
 		<docker-repository>757grok/alag</docker-repository>
-		<docker-repository-tag>otus-myapp</docker-repository-tag>
+		<docker-repository-tag>otus-myapp2</docker-repository-tag>
 		<dist.project.id>myapp-0.0.1-SNAPSHOT</dist.project.id>
 	</properties>
 
