@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: otus-myapp
-          image: 757grok/alag:otus-myapp2
+          image: 757grok/alag:otus-myapp
           ports:
             - name: web
               containerPort: 8000
