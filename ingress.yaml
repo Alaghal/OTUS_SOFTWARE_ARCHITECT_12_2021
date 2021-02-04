@@ -3,13 +3,13 @@ kind: Ingress
 metadata:
   name: myapp-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
     - host: arch.homework
       http:
         paths:
-          - path: /($|/)(.*)
+          - path: /
             pathType: Prefix
             backend:
               service:
