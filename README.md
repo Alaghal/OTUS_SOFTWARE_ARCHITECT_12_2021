@@ -10,7 +10,7 @@ mvn compile jib:build
 ```
 skaffold init --XXenableJibInit
 ```
-###PowerShell
+### PowerShell
 Получаем адрес:
 ```
 minikube service myapp-service --url -n default
