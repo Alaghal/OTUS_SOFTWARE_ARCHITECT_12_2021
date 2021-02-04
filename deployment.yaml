@@ -14,7 +14,21 @@ spec:
     spec:
       containers:
         - name: otus-myapp
-          image: 757grok/alag:otus-myapp
+          image: 757grok/alag:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - name: web
               containerPort: 8000
+          livenessProbe:
+            httpGet:
+              port: 8000
+              path: /
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              port: 8000
+              path: /health
+            initialDelaySeconds: 10
+            periodSeconds: 5
