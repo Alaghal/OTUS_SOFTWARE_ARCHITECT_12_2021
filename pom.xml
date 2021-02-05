@@ -94,7 +94,6 @@
 						<ports>
 							<port>8000</port>
 						</ports>
-						<format>OCI</format>
 					</container>
 
 				</configuration>

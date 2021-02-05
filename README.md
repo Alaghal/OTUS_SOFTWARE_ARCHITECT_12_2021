@@ -5,6 +5,10 @@ For Otus Homework
 ````
 mvn compile jib:build
 ````
+### Команда для kubectl
+````
+kubectl apply -f .\deployment.yaml -f .\service.yaml -f .\ingress.yaml
+````
 ### Для инита skaffold использовать команду ниже
 если всплывает сообщение о выборе билда из DockerFile или JIB, выбираем JIB
 ```

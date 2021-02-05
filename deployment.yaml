@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: otus-myapp
-          image: 757grok/alag:latest
+          image: 757grok/alag:otus-myapp
           imagePullPolicy: IfNotPresent
           ports:
             - name: web
