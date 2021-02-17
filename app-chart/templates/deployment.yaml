@@ -1,21 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp-deployment
+  name: {{ include "app-chart.fullname" . }}
+  labels:
+    {{- include "app-chart.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: myapp-otus
+      {{- include "app-chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: myapp-otus
+        {{- include "app-chart.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
     spec:
       containers:
-        - name: otus-myapp
-          image: 757grok/alag:otus-myapp
-          imagePullPolicy: IfNotPresent
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
           env:
             - name: DATABASE_URI
               valueFrom:
@@ -37,19 +45,3 @@ spec:
                 configMapKeyRef:
                   name: app-config
                   key: DATABASE_PASSWORD
-          ports:
-            - name: web
-              containerPort: 8000
-          livenessProbe:
-            httpGet:
-              port: 8000
-              path: /
-            initialDelaySeconds: 10
-            periodSeconds: 5
-            timeoutSeconds: 2
-          readinessProbe:
-            httpGet:
-              port: 8000
-              path: /health
-            initialDelaySeconds: 10
-            periodSeconds: 5

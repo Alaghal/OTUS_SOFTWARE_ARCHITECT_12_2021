@@ -1,1 +1,0 @@
-insert into USERS (USER_NAME,FIRST_NAME,LAST_NAME,EMAIl_NAME,PHONE) values ('andy', 'gopkins', 'andyonio','email@mail.com','78451125478')
