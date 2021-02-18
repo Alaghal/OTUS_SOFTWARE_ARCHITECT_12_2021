@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "myapp"
+spec:
+  template:
+    metadata:
+      name: "myapp"
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: post-install-job
+          image: postgres:latest
+          env:
+            - name: POSTGRES_PASSWORD
+              value: "passwd"
+          command:
+            - sh
+            - "-c"
+            - |
+              psql postgres://myuser:passwd@myapp-postgresql/myapp <<'EOF'
+                insert into USERS (USER_NAME,FIRST_NAME,LAST_NAME,EMAIl_NAME,PHONE) values ('andy', 'gopkins', 'andyonio','email@mail.com','78451125478');
+              EOF
+
+  backoffLimit: 0
