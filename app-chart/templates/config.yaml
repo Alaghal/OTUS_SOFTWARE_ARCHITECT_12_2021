@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: app-config
 data:
-  DATABASE_URI: {{.Values.postgresql.postgresqlUri}}
+  DATABASE_URI: "jdbc:postgresql://{{ (include "postgresql.fullname" .) }}:{{ .Values.postgresql.service.port }}/{{.Values.postgresql.postgresqlDatabase }}"
   DATABASE_NAME: {{.Values.postgresql.postgresqlDatabase}}
   DATABASE_USER: {{.Values.postgresql.postgresqlUsername}}
   DATABASE_PASSWORD: {{.Values.postgresql.postgresqlPassword}}

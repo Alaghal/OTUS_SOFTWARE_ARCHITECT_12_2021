@@ -42,7 +42,7 @@ public class UserController {
     public ResponseEntity<Object> updateUser(@RequestParam(value = "id", required = true) Long id,
                                              @Valid @RequestBody User user) {
         if (service.updateUsers(user)) {
-            return ok().body("Success edit with id = " + user.getId());
+            return ok().body("Success edit with   id = " + user.getId());
         }
         return badRequest().body("User not found for update ");
     }

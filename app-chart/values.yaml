@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: 757grok/alag
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "otus-myapp"
 
@@ -15,7 +15,6 @@ service:
   port: 8000
 
 postgresql:
-  postgresqlUri: jdbc:postgresql://192.168.111.117:32038/myapp
   enabled: true
   postgresqlUsername: myuser
   postgresqlPassword: passwd
