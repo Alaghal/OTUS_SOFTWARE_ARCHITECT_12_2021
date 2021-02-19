@@ -5,25 +5,20 @@ For Otus Homework
 ````
 mvn compile jib:build
 ````
-### Команда для kubectl
+
+### Запуск проекта
+### 1 Запуск bd на Helm
+```
+ helm install myapp ./app-chart
+```
+### 2 Команда для kubectl
 ````
-kubectl apply -f .\deployment.yaml -f .\service.yaml -f .\ingress.yaml
+kubectl apply -f .\deployment.yaml -f .\service.yaml -f .\ingress.yaml -f .\initdb.yaml
 ````
 ### Для инита skaffold использовать команду ниже
 если всплывает сообщение о выборе билда из DockerFile или JIB, выбираем JIB
 ```
 skaffold init --XXenableJibInit
 ```
-### PowerShell
-Получаем адрес:
-```
-minikube service myapp-service --url -n default
-```
-Выполняем запрос
-```
-$r = iwr  http://172.18.9.134/health/ -Headers @{'Host' = 'arch.homework'}
-```
-Достаем результат
-```
-$r.AllElements
-```
+### Ссылка на колекцию POSTMAN
+https://www.getpostman.com/collections/1a18ad8ba8ff2e840920
