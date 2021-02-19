@@ -19,7 +19,14 @@ spec:
             - "-c"
             - |
               psql postgres://myuser:passwd@myapp-postgresql/myapp <<'EOF'
-                insert into USERS (USER_NAME,FIRST_NAME,LAST_NAME,EMAIl_NAME,PHONE) values ('andy', 'gopkins', 'andyonio','email@mail.com','78451125478');
+                create table if not exists USERS (USER_ID SERIAL PRIMARY KEY,
+                                       USER_NAME VARCHAR(30) NOT NULL,
+                                       FIRST_NAME VARCHAR(20) NOT NULL,
+                                       LAST_NAME VARCHAR(20) NOT NULL,
+                                       EMAIl_NAME VARCHAR(20) NOT NULL,
+                                       PHONE VARCHAR(20) NOT NULL);
+                insert into USERS (USER_NAME,FIRST_NAME,LAST_NAME,EMAIl_NAME,PHONE)
+              values ('andy', 'gopkins', 'andyonio','email@mail.com','78451125478');
               EOF
 
   backoffLimit: 0

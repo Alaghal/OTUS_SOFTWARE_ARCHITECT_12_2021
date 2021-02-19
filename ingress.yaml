@@ -13,7 +13,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: myapp-app-chart
+                name: myapp-service
                 port:
                   number: 8000
 
