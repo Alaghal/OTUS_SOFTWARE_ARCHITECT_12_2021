@@ -14,3 +14,15 @@ spring:
     password: ${DATABASE_PASSWORD}
     driverClassName: org.postgresql.Driver
     name: ${DATABASE_NAME}
+
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: metrics,prometheus,shutdown
+  endpoint:
+    shutdown:
+      enabled: true
+    info:
+      enabled: true

@@ -13,6 +13,14 @@ image:
 service:
   type: NodePort
   port: 8000
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: 8000
+
+metrics:
+  serviceMonitor:
+    enabled: true
 
 postgresql:
   enabled: true
@@ -21,3 +29,9 @@ postgresql:
   postgresqlDatabase: myapp
   service:
     port: "5432"
+
+ingress:
+  enabled: true
+  hosts:
+    - host: "arch.homework"
+      paths: ["/"]

@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: myapp-monitor
+  labels:
+    helm.sh/chart: app-chart-0.1.0
+    app.kubernetes.io/name: app-chart
+    app.kubernetes.io/instance: myapp
+    app.kubernetes.io/version: "2.0.0"
+    app.kubernetes.io/managed-by: Helm
+    release: prom
+spec:
+  jobLabel: myapp-app-chart
+  namespaceSelector:
+    matchNames:
+      - "default"
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: app-chart
+      app.kubernetes.io/instance: myapp
+      Release: prom
+  endpoints:
+    - interval: 15s
+      port: web
+      path: /prometheus

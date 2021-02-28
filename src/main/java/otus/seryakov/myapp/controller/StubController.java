@@ -11,6 +11,6 @@ public class StubController {
 
     @GetMapping("/")
     public ResponseEntity<Object> getCurrentPage() {
-        return ok().body("Main page");
+        return ok().body("Main page :version  1.0.2.0");
     }
 }

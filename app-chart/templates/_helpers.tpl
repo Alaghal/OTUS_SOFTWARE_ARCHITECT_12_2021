@@ -29,7 +29,6 @@ Create chart name and version as used by the chart label.
 {{- define "app-chart.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
-
 {{/*
 Common labels
 */}}
@@ -39,15 +38,15 @@ helm.sh/chart: {{ include "app-chart.chart" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/managed-by: myapp
 {{- end }}
 
 {{/*
 Selector labels
 */}}
 {{- define "app-chart.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "app-chart.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/name: app-chart
+app.kubernetes.io/instance: myapp
 {{- end }}
 
 {{/*
