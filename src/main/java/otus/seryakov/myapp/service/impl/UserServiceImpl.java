@@ -2,6 +2,7 @@ package otus.seryakov.myapp.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import otus.seryakov.myapp.model.User;
 import otus.seryakov.myapp.repository.UserRepository;
@@ -18,6 +19,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
+
 
     @Override
     public boolean addUser(User user) {
@@ -31,7 +34,7 @@ public class UserServiceImpl implements UserService {
             log.info(sb.toString());
             return false;
         }
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         repository.saveAndFlush(user);
         sb.append(user);
         sb.append(" ");
