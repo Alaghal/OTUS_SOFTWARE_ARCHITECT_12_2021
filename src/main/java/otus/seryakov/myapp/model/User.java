@@ -36,8 +36,6 @@ public class User implements UserDetails {
     @Column(name = "PHONE")
     private String phone;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

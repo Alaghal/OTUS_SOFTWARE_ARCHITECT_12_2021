@@ -4,13 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import otus.seryakov.myapp.security.service.PostgresUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      security
              .cors().disable()
              .csrf().disable()
-             .authorizeRequests().anyRequest().permitAll()
+             .authorizeRequests()
+             //Доступ только для не зарегистрированных пользователей
+             .antMatchers("/registration").not().fullyAuthenticated()
+             .antMatchers("/", "/resources/**").permitAll()
+             .anyRequest().authenticated()
+             //Все остальные страницы требуют аутентификации.anyRequest().authenticated()
              .and().httpBasic()
              .and().sessionManagement().disable();
     }
