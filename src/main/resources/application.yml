@@ -14,13 +14,27 @@ spring:
     password: ${DATABASE_PASSWORD}
     driverClassName: org.postgresql.Driver
     name: ${DATABASE_NAME}
+  application:
+    name: demo-micrometer
 
 management:
+  metrics:
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
+            percentiles-histogram: true
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
   endpoints:
     web:
       base-path: /
       exposure:
-        include: metrics,prometheus,shutdown
+        include: "*"
   endpoint:
     shutdown:
       enabled: true

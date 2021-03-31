@@ -3,13 +3,18 @@ kind: Service
 metadata:
    name:  myapp-app-chart
    labels:
-     {{- include "app-chart.labels" . | nindent 4 }}
+    helm.sh/chart: app-chart-0.1.0
+    app.kubernetes.io/name: app-chart
+    app.kubernetes.io/instance: myapp
+    app.kubernetes.io/version: "2.0.0"
+    app.kubernetes.io/managed-by: myapp
 spec:
-  type: {{ .Values.service.type }}
+  type: NodePort
   ports:
-    - port: {{ .Values.service.port }}
+    - port: 8000
       targetPort: web
       protocol: TCP
       name: web
   selector:
-    {{- include "app-chart.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/name: app-chart
+    app.kubernetes.io/instance: myapp

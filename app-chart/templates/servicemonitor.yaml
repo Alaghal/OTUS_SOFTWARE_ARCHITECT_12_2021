@@ -8,7 +8,6 @@ metadata:
     app.kubernetes.io/instance: myapp
     app.kubernetes.io/version: "2.0.0"
     app.kubernetes.io/managed-by: Helm
-    release: prom
 spec:
   jobLabel: myapp-app-chart
   namespaceSelector:
@@ -18,7 +17,6 @@ spec:
     matchLabels:
       app.kubernetes.io/name: app-chart
       app.kubernetes.io/instance: myapp
-      Release: prom
   endpoints:
     - interval: 15s
       port: web
