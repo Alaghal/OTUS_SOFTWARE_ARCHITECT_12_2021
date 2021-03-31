@@ -11,7 +11,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class TimedConfiguration {
    @Bean
    public TimedAspect timedAspect(MeterRegistry registry) {
-      registry.config().commonTags("app", "myapp", "region", "us-east-1");
+      registry.config().commonTags("app", "myapp");
       return new TimedAspect(registry);
    }
 }

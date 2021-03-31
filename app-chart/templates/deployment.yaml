@@ -3,23 +3,29 @@ kind: Deployment
 metadata:
   name: myapp-app-chart
   labels:
-    {{- include "app-chart.labels" . | nindent 4 }}
+    helm.sh/chart: app-chart-0.1.0
+    app.kubernetes.io/name: app-chart
+    app.kubernetes.io/instance: myapp
+    app.kubernetes.io/version: "2.0.0"
+    app.kubernetes.io/managed-by: myapp
 spec:
   replicas: 2
   selector:
     matchLabels:
-      {{- include "app-chart.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/name: app-chart
+      app.kubernetes.io/instance: myapp
   template:
     metadata:
       labels:
-        {{- include "app-chart.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/name: app-chart
+        app.kubernetes.io/instance: myapp
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+        checksum/config: f17b65735efe685aa6224782f16204b2ec8f9e7ac71aedf3a6e8044d9b29c456
     spec:
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: app-chart
+          image: "757grok/alag:otus-myapp"
+          imagePullPolicy: Always
           ports:
             - name: web
               containerPort: 8000

@@ -19,7 +19,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/v1/users")
-@Timed("users")
+//@Timed("users")
 public class UserController {
 
     @Autowired
@@ -31,24 +31,29 @@ public class UserController {
 
 
     public UserController (final MeterRegistry registry) {
-        reqEchoCounter = registry.counter("user_rest", "usecase", "getAllUser");
+        reqEchoCounter = registry.counter("user_rest", "usecase", "getUsers");
     }
 
     @GetMapping()
-    @Timed(value = "users.all", percentiles = {0.5, 0.95, 0.99}, histogram = true)
+//    @Timed(value = "users.all", percentiles = {0.5, 0.95, 0.99}, histogram = true)
     public List getUsers() {
+        return service.getAllUsers();
+    }
+
+    @GetMapping("/all")
+    public List getUsersWithCounter() {
         reqEchoCounter.increment();
         return service.getAllUsers();
     }
 
     @GetMapping("/id")
-    @Timed(value = "user", percentiles = {0.5, 0.95, 0.99}, histogram = true)
+//    @Timed(value = "user", percentiles = {0.5, 0.95, 0.99}, histogram = true)
     public User getUserById(@RequestParam(value = "id", required = true) Long id) {
         return service.getUserById(id);
     }
 
     @PostMapping()
-    @Timed(value = "user.create", percentiles = {0.5, 0.95, 0.99}, histogram = true)
+//    @Timed(value = "user.create", percentiles = {0.5, 0.95, 0.99}, histogram = true)
     public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
         if (service.addUser(user)) {
             return ok().body("Success added new user " + user.getUsername());
@@ -57,7 +62,7 @@ public class UserController {
     }
 
     @PutMapping("/id")
-    @Timed(value = "user.update", percentiles = {0.5, 0.95, 0.99}, histogram = true)
+//    @Timed(value = "user.update", percentiles = {0.5, 0.95, 0.99}, histogram = true)
     public ResponseEntity<Object> updateUser(@RequestParam(value = "id", required = true) Long id,
                                              @Valid @RequestBody User user) {
         if (service.updateUsers(user)) {
@@ -67,7 +72,7 @@ public class UserController {
     }
 
     @DeleteMapping("/id")
-    @Timed(value = "user.delete", percentiles = {0.5, 0.95, 0.99}, histogram = true)
+//    @Timed(value = "user.delete", percentiles = {0.5, 0.95, 0.99}, histogram = true)
     public ResponseEntity<Object> deleteAddress(@RequestParam(value = "id", required = true) Long id) {
         if (service.deleteUser(id)) {
             return ResponseEntity.ok().body("Success delete user with id = " + id);
@@ -76,9 +81,9 @@ public class UserController {
     }
 
     @GetMapping("/error")
-    @Timed(value = "error", percentiles = {0.5, 0.95, 0.99}, histogram = true)
+//    @Timed(value = "error", percentiles = {0.5, 0.95, 0.99}, histogram = true)
     public ResponseEntity<Object> getError() {
-        return badRequest().body("Some error");
+        throw new IllegalStateException();
     }
 
 }
