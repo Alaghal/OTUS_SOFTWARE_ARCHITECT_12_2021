@@ -1,6 +1,6 @@
 package otus.seryakov.myapp.service;
 
-import otus.seryakov.myapp.model.User;
+import otus.seryakov.myapp.domain.User;
 
 import java.util.List;
 

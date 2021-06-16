@@ -1,4 +1,4 @@
-package otus.seryakov.myapp.model;
+package otus.seryakov.myapp.domain;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

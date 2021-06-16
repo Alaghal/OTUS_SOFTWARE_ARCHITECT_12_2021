@@ -1,12 +1,13 @@
 package otus.seryakov.myapp.controller;
 
-import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import otus.seryakov.myapp.model.User;
+import otus.seryakov.myapp.domain.User;
 import otus.seryakov.myapp.service.UserService;
 
 import javax.validation.Valid;
@@ -18,12 +19,12 @@ import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
+@NoArgsConstructor
 @RequestMapping("/v1/users")
 //@Timed("users")
 public class UserController {
 
-    @Autowired
-    private UserService service;
+    private  UserService service;
 
 
     // Metric Counter to collect the amount of Echo calls
@@ -32,16 +33,21 @@ public class UserController {
 
     public UserController (final MeterRegistry registry) {
         reqEchoCounter = registry.counter("user_rest", "usecase", "getUsers");
+
+    }
+
+    public UserController(UserService service) {
+        this.service = service;
     }
 
     @GetMapping()
 //    @Timed(value = "users.all", percentiles = {0.5, 0.95, 0.99}, histogram = true)
-    public List getUsers() {
+    public List<User> getUsers() {
         return service.getAllUsers();
     }
 
     @GetMapping("/all")
-    public List getUsersWithCounter() {
+    public List<User> getUsersWithCounter() {
         reqEchoCounter.increment();
         return service.getAllUsers();
     }

@@ -7,13 +7,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import otus.seryakov.myapp.model.User;
+import otus.seryakov.myapp.domain.User;
 import otus.seryakov.myapp.repository.UserRepository;
 import otus.seryakov.myapp.service.UserService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
