@@ -1,4 +1,4 @@
-package otus.seryakov.myapp.config;
+package otus.seryakov.myapp.story;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -10,13 +10,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 
 @Configuration
 @EnableWebSecurity
+@Profile("test")
+@ActiveProfiles("test")
 @EnableConfigurationProperties
-@Profile("!test")
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfigTest extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity security) throws Exception
@@ -24,14 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      security
              .cors().disable()
              .csrf().disable()
-             .authorizeRequests()
-             //Доступ только для не зарегистрированных пользователей
-             .antMatchers("/registration").not().fullyAuthenticated()
-             .antMatchers("/", "/resources/**").permitAll()
-             .anyRequest().authenticated()
+             .authorizeRequests().anyRequest().permitAll()
              //Все остальные страницы требуют аутентификации.anyRequest().authenticated()
-             .and().httpBasic()
-             .and().sessionManagement().disable();
+             .and().httpBasic().disable();
     }
 
     @Bean

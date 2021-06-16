@@ -19,11 +19,11 @@ import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@NoArgsConstructor
 @RequestMapping("/v1/users")
 //@Timed("users")
 public class UserController {
 
+    @Autowired
     private  UserService service;
 
 
@@ -34,10 +34,6 @@ public class UserController {
     public UserController (final MeterRegistry registry) {
         reqEchoCounter = registry.counter("user_rest", "usecase", "getUsers");
 
-    }
-
-    public UserController(UserService service) {
-        this.service = service;
     }
 
     @GetMapping()
