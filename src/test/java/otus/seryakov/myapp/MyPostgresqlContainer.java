@@ -1,4 +1,4 @@
-package otus.seryakov.myapp.story;
+package otus.seryakov.myapp;
 
 import org.testcontainers.containers.PostgreSQLContainer;
 
